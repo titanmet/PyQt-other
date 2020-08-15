@@ -44,6 +44,7 @@ class Ui_client(object):
         self.verticalLayout.addLayout(self.horizontalLayout)
 
         self.retranslateUi(client)
+        self.horizontalSlider.valueChanged['int'].connect(self.label.setNum)
         QtCore.QMetaObject.connectSlotsByName(client)
 
     def retranslateUi(self, client):
