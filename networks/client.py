@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from widget import client_UI as ui
+import util
 
 
 class clientWindow(QWidget, ui.Ui_client):
@@ -8,6 +9,7 @@ class clientWindow(QWidget, ui.Ui_client):
         super(clientWindow, self).__init__()
         self.setWindowFlags(Qt.WindowStaysOnTopHint)
         self.setupUi(self)
+        self.lineEdit.setText(util.IP)
 
 
 if __name__ == '__main__':
