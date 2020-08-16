@@ -11,6 +11,7 @@ class clientWindow(QWidget, ui.Ui_client):
         self.setWindowFlags(Qt.WindowStaysOnTopHint)
         self.setupUi(self)
         self.lineEdit.setText(util.IP)
+        self.server = None
         self.pushButton.clicked.connect(self.connectToServer)
         self.horizontalSlider.sliderReleased.connect(self.messageToServer)
 
@@ -18,6 +19,10 @@ class clientWindow(QWidget, ui.Ui_client):
         ip = self.lineEdit.text()
         self.server = QTcpSocket()
         self.server.connectToHost(ip, util.PORT)
+        self.server.disconnected.connect(self.serverError)
+        self.server.error.connect(self.serverError)
+        # self.connect_btn.setEnabled(0)
+        # self.ip_le.setEnabled(0)
 
     def messageToServer(self):
         msg = str(self.horizontalSlider.value())
@@ -25,7 +30,7 @@ class clientWindow(QWidget, ui.Ui_client):
             return
         self.request = QByteArray()
         stream = QDataStream(self.request, QIODevice.WriteOnly)
-        stream.setVersion(QDataStream.Qt_4_2)
+        stream.setVersion(QDataStream.Qt_5_2)
         stream.writeUInt32(0)
         stream << msg
         stream.device().seek(0)
@@ -35,8 +40,8 @@ class clientWindow(QWidget, ui.Ui_client):
 
     def serverError(self):
         self.server.close()
-        self.pushButton.setEnabled(1)
-        self.lineEdit.setEnabled(1)
+        # self.pushButton.setEnabled(1)
+        # self.lineEdit.setEnabled(1)
 
 
 if __name__ == '__main__':

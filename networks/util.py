@@ -1,5 +1,5 @@
 import socket
 
-PORT = 12345
+PORT = 87
 IP = socket.gethostbyname(socket.gethostname())
 UNIT32 = 4

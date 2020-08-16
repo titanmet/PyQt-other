@@ -31,7 +31,7 @@ class serverWindow(QWidget, ui.Ui_Server):
     def receiveMessage(self, socket):
         if socket.bytesAvailable() > 0:
             stream = QDataStream(socket)
-            stream.setVersion(QDataStream.Qt_4_2)
+            stream.setVersion(QDataStream.Qt_5_2)
             if socket.nextBlockSize == 0:
                 if socket.bytesAvailable() < util.UINT32:
                     return
